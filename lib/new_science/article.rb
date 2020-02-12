@@ -1,5 +1,4 @@
 #require "new_science/version"
-require 'pry'
 
 class NewScience::Article
   attr_accessor :name, :price, :availability, :url
@@ -27,6 +26,7 @@ class NewScience::Article
     name = doc.search("p media-heading l-media_heading").text.strip
     url = doc.search("a.l-media__link--heading").first.attr("href").strip
 binding.pry
+    end
     article = self.new
 
   end
