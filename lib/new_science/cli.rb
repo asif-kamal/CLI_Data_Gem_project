@@ -1,6 +1,5 @@
 class NewScience::CLI
 
-  require 'colorize'
 
   def call
     NewScience::Scraper.scrape

@@ -9,8 +9,8 @@ def self.scrape
   name = news.css("p media-heading l-media_heading").text.strip
   url = news.css("a l-media_heading__link--heading").attr("href").value
 #binding.pry
-  end
   NewScience::Article.new(name, date, url)
+  end
 end
 
 def self.get_description(article_choice)
