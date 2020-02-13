@@ -18,10 +18,8 @@ class NewScience::CLI
   def start
     puts "These are the most recent articles on new scientific discoveries:"
 
-      articles = RedRocks::Article.all
+      articles = NewScience::Article.all
       articles.each.with_index(1) {|article, index| puts "#{index}. #{article.name}"}
-
-
   end
 
   def menu
@@ -34,21 +32,20 @@ class NewScience::CLI
       puts ""
       puts "#{article_choice.date}"
       puts "#{article_choice.name}"
+      puts "#{article_choice.url}"
       puts ""
-      puts "For tickets and more information, please visit:".cyan
-      puts "#{concert_choice.tickets_URL}"
-      puts ""
-      puts "///////////////////////////////////////////////////////////////////////////"
-      menu
-    elsif
-      input == "exit"
-      puts ""
-      puts "See ya out there!!".bold
-      puts ""
-      system "clear" or system "cls"
+      puts "Do you want to read an excerpt of the journal article? Type 'yes' or 'no'."
+      if input == 'yes'
+        puts "#{NewScience::Scraper.get_description(article_choice)}"
+      elsif input == 'no'
+        menu
+      end
+
+    elsif input == 'exit'
+        puts "Thank you for visiting the NSF website!"
     else
       puts "Please try again."
-      menu
     end
   end
+
 end
