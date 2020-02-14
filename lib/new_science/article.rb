@@ -1,12 +1,13 @@
 class NewScience::Article
-  attr_accessor :name, :date, :url
+  attr_accessor :name, :date, :url, :desc
 
   @@all = []
 
-  def initialize(name, date, url)
+  def initialize(name, date, url, desc = nil)
     @name = name
     @date = date
-    @URL = url
+    @url = url
+    @desc = desc
     @@all << self
   end
 

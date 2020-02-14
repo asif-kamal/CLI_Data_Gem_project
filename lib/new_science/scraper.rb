@@ -1,23 +1,32 @@
 class NewScience::Scraper
 
 def self.scrape
+
   doc = Nokogiri::HTML(open("https://www.nsf.gov/news/index.jsp?news_type=99&prio_area=0&org=NSF"))
 
-  whole_page = doc.css(".col-md-12 l-add-border")
+  whole_page = doc.css(".media.l-media")
   whole_page.each do |news|
+
   date = news.css("span.l-media__date").text.strip
-  name = news.css("p media-heading l-media_heading").text.strip
-  url = news.css("a l-media_heading__link--heading").attr("href").value
-#binding.pry
+  name = news.css(".media-heading.l-media__heading").text.strip
+  url = "https://www.nsf.gov" + "#{news.css("a").attr("href").value}"
+
   NewScience::Article.new(name, date, url)
-  end
+end
+  NewScience::Article.all.each do |article|
+
+  doc = Nokogiri::HTML(open(article.url))
+
+  article.desc = doc.css("p:nth-child(7)").text.strip
+end
 end
 
-def self.get_description(article_choice)
-  doc = Nokogiri::HTML(open(article_choice.url))
-
-  article_page = doc.css(".main__col col-sm-12 col-md-12 col-lg-12")
-  desc = article_page.css("p:nth-child(7)")
-end
+# def self.get_description(url)
+#
+#   doc = Nokogiri::HTML(open(url))
+#
+#   desc = doc.css("p:nth-child(7)").text.strip
+#
+# end
 
 end

@@ -1,6 +1,8 @@
 require 'pry'
 require 'nokogiri'
 require 'open-uri'
+require 'rainbow'
+require 'colorize'
 
 
 require_relative '../lib/new_science/article'
